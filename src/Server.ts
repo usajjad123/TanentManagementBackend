@@ -14,7 +14,7 @@ const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
 /************************************************************************************
- *                              Set basic express settings
+ *                              Set basic express settings                         *
  ***********************************************************************************/
 
 app.use(express.json());
@@ -32,7 +32,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Add APIs
+// app.use('/api', BaseRouter);
 app.use('/api', BaseRouter);
+
 
 // Print API errors
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

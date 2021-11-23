@@ -11,4 +11,6 @@ userRouter.delete('/delete/:id', deleteOneUser);
 // Export the base-router
 const baseRouter = Router();
 baseRouter.use('/users', userRouter);
+app.use('/sign-up',);
+
 export default baseRouter;
