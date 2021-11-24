@@ -1,21 +1,23 @@
 import * as mongoDB from "mongodb";
 import { clientConfig } from "../daos/Modal/DBConfig";
 import { resetPassword } from "../daos/Modal/DBConfig";
+import { sendEmail } from "../shared/emailServices";
+// import { randomStringGenerator } from "../shared/StringGenerator";
 
-async function resetPass(email: string): Promise<boolean | undefined> {
+export async function resetPass(email: string): Promise<boolean | undefined> {
     const client: mongoDB.MongoClient = await clientConfig();
     // eslint-disable-next-line @typescript-eslint/no-inferrable-types
     const newpassword: string = 'randomStringGenerator';
     try {
         const response = await resetPassword(client, email, newpassword);
-        if (response!.modifiedCount === 1) {
-            await sendEmail(email, newpassword);
+        if (response.modifiedCount === 1) {
+            const emailResponse = await sendEmail(email, newpassword);
             return true;
         }
         return false;
     }
-    catch (er) {
-        console.error(er);
+    catch {
+        throw "Error"
     }
     finally {
         await client.close();

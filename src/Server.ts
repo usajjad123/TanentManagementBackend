@@ -8,8 +8,10 @@ import StatusCodes from 'http-status-codes';
 import 'express-async-errors';
 
 import BaseRouter from './routes';
-import logger from '@shared/Logger';
-
+import logger from '../src/shared/Logger';
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { connectDatabase } from '@daos/Modal/DBConfig';
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
@@ -20,6 +22,7 @@ const { BAD_REQUEST } = StatusCodes;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+connectDatabase();
 
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {

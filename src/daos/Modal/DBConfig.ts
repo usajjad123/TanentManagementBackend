@@ -1,31 +1,9 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
+import { user } from '../../shared/Types';
 
 // globalVariables
-let _db: mongoDB.Db;
 let _client: mongoDB.MongoClient;
-
-// Sign-up User Object
-interface user {
-    uid
-    :
-    string
-    firstname
-    :
-    string
-    lastname
-    :
-    string
-    email
-    :
-    string
-    password
-    :
-    string
-    phoneno
-    :
-    string
-}
 
 // Connection For Database
 export async function connectDatabase() {
@@ -34,18 +12,10 @@ export async function connectDatabase() {
     const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING!);
 
     await client.connect();
-
-    const db: mongoDB.Db = client.db(process.env.DB_NAME);
-    _db = db;
     _client = client;
 }
-export const getConfiguration = async (): Promise<mongoDB.Db> => {
-    await connectDatabase();
-    return _db;
-};
 
-export const clientConfig = async (): Promise<mongoDB.MongoClient> => {
-    await connectDatabase();
+export const clientConfig = (): mongoDB.MongoClient => {
     return _client;
 }
 
@@ -61,12 +31,12 @@ export const registerUser = async (client: mongoDB.MongoClient, userInfo: user):
         return false;
     }
     catch {
-        throw ('Error');
+        throw "Error";
     }
 }
 
 // Login MongoDb Function
-export const authenticateUser = async (client: mongoDB.MongoClient, email: string, password: string) => {
+export const authenticateUser = async (client: mongoDB.MongoClient, email: any, password: any) => {
     const response = await client.db('vendrDB').collection('users').findOne({ email: email, password: password })
     return response;
 }
@@ -77,7 +47,7 @@ export const changePassword = async (client: mongoDB.MongoClient, paramEmail: st
         const response = await client.db('vendrDB').collection('users').updateOne({ email: paramEmail, password: oldPassword }, { $set: { password: newPassword } });
         return response;
     } catch (er) {
-        console.error(er);
+        throw "Error";
     }
 }
 
@@ -88,7 +58,7 @@ export const resetPassword = async (client: mongoDB.MongoClient, email: string, 
         const response = await client.db('vendrDB').collection('users').updateOne({ email }, { $set: { password: newPassword } });
         return response;
     }
-    catch (er) {
-        console.error(er);
+    catch {
+        throw "Error";
     }
 }

@@ -1,16 +1,15 @@
 import { Router } from 'express';
-import { getAllUsers, addOneUser, updateOneUser, deleteOneUser } from './Users';
-
+import { Login, ChangePassword, PasswordReset, SignUp } from './auth.endpoints';
 // User-route
-const userRouter = Router();
-userRouter.get('/all', getAllUsers);
-userRouter.post('/add', addOneUser);
-userRouter.put('/update', updateOneUser);
-userRouter.delete('/delete/:id', deleteOneUser);
+const authRouter = Router();
+authRouter.get('/login', Login);
+authRouter.put('/change-password', ChangePassword);
+authRouter.put('/reset-password', PasswordReset);
+authRouter.post('/sign-up', SignUp);
+
 
 // Export the base-router
 const baseRouter = Router();
-baseRouter.use('/users', userRouter);
-app.use('/sign-up',);
+baseRouter.use('/auth', authRouter)
 
 export default baseRouter;
