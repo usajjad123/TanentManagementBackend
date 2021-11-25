@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
@@ -11,7 +12,6 @@ import BaseRouter from './routes';
 import logger from '../src/shared/Logger';
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import { connectDatabase } from '@daos/Modal/DBConfig';
 const app = express();
 const { BAD_REQUEST } = StatusCodes;
 
@@ -22,8 +22,8 @@ const { BAD_REQUEST } = StatusCodes;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-connectDatabase();
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('../src/daos/Modal/DBConfig').connectDatabase();
 // Show routes called in console during development
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import { Login, ChangePassword, PasswordReset, SignUp } from './auth.endpoints';
+import { UserAuth, ChangePassword, ResetPassword, SignUp } from './Auth';
 // User-route
 const authRouter = Router();
-authRouter.get('/login', Login);
+
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+authRouter.get('/login', UserAuth);
 authRouter.put('/change-password', ChangePassword);
-authRouter.put('/reset-password', PasswordReset);
+authRouter.put('/reset-password', ResetPassword);
 authRouter.post('/sign-up', SignUp);
 
 

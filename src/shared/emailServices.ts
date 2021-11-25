@@ -1,4 +1,4 @@
-import { clientConfig } from '../daos/Modal/DBConfig';
+import { getConfig } from '../daos/Modal/DBConfig';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodemailer = require('nodemailer');
 
@@ -12,9 +12,9 @@ const transporter = nodemailer.createTransport({
 })
 
 export const sendEmail = async function (email: string, newPassword: string) {
-  const client = await clientConfig();
+  const db =  getConfig();
 
-  const response = await client.db('vendrDB').collection('users').findOne({ email: email });
+  const response = await db.collection('users').findOne({ email: email });
   if (response !== null) {
     const mailOptions = {
       from: "tech inferno",

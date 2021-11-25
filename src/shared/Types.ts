@@ -1,13 +1,3 @@
-import * as mongoDB from "mongodb";
-
-export interface mongoClient {
-    mongoClient: mongoDB.MongoClient
-}
-
-export interface mongoDb {
-    mongoDataBase: mongoDB.Db
-}
-
 export interface user {
     uid
     :
@@ -27,4 +17,32 @@ export interface user {
     phoneno
     :
     string
+}
+
+export interface SignupRequest {
+    body: {
+      user: user
+    };
+  }
+
+
+export interface LoginRequest {
+  headers: {
+    email: user["email"];
+    password: user["password"];
+  }
+}
+
+export interface ChangePasswordRequest {
+  body: {
+    email: user["email"];
+    password: user["password"];
+    newpassword: user["password"];
+  }
+}
+
+export interface ResetPasswordRequest {
+  body: {
+    email: user["email"];
+  }
 }
