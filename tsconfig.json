@@ -69,7 +69,8 @@
       "@daos/*": ["src/daos/*"],
       "@entities/*": ["src/entities/*"],
       "@shared/*": ["src/shared/*"],
-      "@server": ["src/Server"]
+      "@server": ["src/Server"],
+      "typeRoots": ["./types"]
     }
   },
   "include": ["src/**/*.ts", "spec/**/*.ts"],

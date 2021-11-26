@@ -1,8 +1,5 @@
 import { getConfig } from '../daos/Modal/DBConfig';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const nodemailer = require('nodemailer');
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+import nodemailer, { SentMessageInfo } from 'nodemailer';
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -12,9 +9,8 @@ const transporter = nodemailer.createTransport({
 })
 
 export const sendEmail = async function (email: string, newPassword: string) {
-  const db =  getConfig();
-
-  const response = await db.collection('users').findOne({ email: email });
+  const client = getConfig();
+  const response = await client.db('vendrDB').collection('users').findOne({ email: email });
   if (response !== null) {
     const mailOptions = {
       from: "tech inferno",
@@ -23,12 +19,11 @@ export const sendEmail = async function (email: string, newPassword: string) {
       text: `Your new password is ${newPassword}`,
     }
     return new Promise((res, rej) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      transporter.sendMail(mailOptions, function (error: Error) {
+      transporter.sendMail(mailOptions, function (error: Error|null,_info: SentMessageInfo) {
         if (error) {
           rej(error)
         } else {
-          console.log('sent');
+          console.log('sent',_info);
         }
       })
     })

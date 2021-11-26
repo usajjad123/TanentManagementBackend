@@ -1,12 +1,12 @@
 import { getConfig } from "../daos/Modal/DBConfig";
 import * as mongoDB from "mongodb";
 import { registerUser } from '../daos/Modal/DBConfig';
-import { user } from '../shared/Types';
 
-export const signUp = async (userInfo: user): Promise<boolean> => {
-    const db: mongoDB.Db = getConfig();
+export const signUp = async (userInfo: any): Promise<boolean> => {
+    const client: mongoDB.MongoClient = getConfig();
     try {
-        const response: boolean = await registerUser(db, userInfo);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const response: boolean = await registerUser(client, userInfo);
         return response;
     }
     catch {

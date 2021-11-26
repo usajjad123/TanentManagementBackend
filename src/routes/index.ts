@@ -3,7 +3,6 @@ import { UserAuth, ChangePassword, ResetPassword, SignUp } from './Auth';
 // User-route
 const authRouter = Router();
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
 authRouter.get('/login', UserAuth);
 authRouter.put('/change-password', ChangePassword);
 authRouter.put('/reset-password', ResetPassword);

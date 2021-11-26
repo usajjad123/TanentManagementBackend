@@ -1,12 +1,13 @@
 import { getConfig } from '../daos/Modal/DBConfig';
 import { authenticateUser } from '../daos/Modal/DBConfig';
 import { randomStringGenerator } from '../shared/StringGenerator';
-export async function userAuthentication(email: string, password: string) {
-    const db = getConfig();
-    if (email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) && password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+export async function userAuthentication(email: any, password: any) {
+    const client = getConfig();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    if (email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         try {
-
-            const response = await authenticateUser(db, email, password);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            const response = await authenticateUser(client, email, password);
             const token = randomStringGenerator;
             if (response === null) {
                 return null
