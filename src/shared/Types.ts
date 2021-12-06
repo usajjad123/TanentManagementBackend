@@ -1,4 +1,4 @@
-import { StringifyOptions } from "querystring"
+import { ReplaceOneModel } from "mongodb"
 
 export interface user {
   uid
@@ -366,13 +366,11 @@ export type accountSettingsData = {
   }
 }
 export type accountSettingsProfileDetailsData = {
-  profileDetails: {
-    firstName: string,
-    middleName: string,
-    lastName: string,
-    companyName: string,
-    displayAsCompany: boolean,
-  }
+  firstName: string,
+  middleName: string,
+  lastName: string,
+  companyName: string,
+  displayAsCompany: boolean,
 }
 export type accountEmailData = {
   email: string
@@ -390,3 +388,45 @@ export type accountSettingsAdditionalSettingsData = {
     parking: string
   }
 }
+// export type maintenanceRequestSettingsData = {
+
+// }
+
+export type propertyIncomeDataType = {
+  userID: string,
+  subCategory: string,
+  due: string,
+  amount: string,
+  markAsPaid: string,
+  payer: string,
+  lease: string,
+  details: string,
+  uploadFile: string
+}
+
+export type propertyIncomeRequest = {
+  body: {
+    userID: string,
+    subCategory: string,
+    due: string,
+    amount: string,
+    markAsPaid: string,
+    payer: string,
+    lease: string,
+    details: string,
+    uploadFile: string
+  }
+}
+export type propertyIncomeDataTypeArr = [
+  {
+    userID: string,
+    subCategory: string,
+    due: string,
+    amount: string,
+    markAsPaid: string,
+    payer: string,
+    lease: string,
+    details: string,
+    uploadFile: string
+  }
+]

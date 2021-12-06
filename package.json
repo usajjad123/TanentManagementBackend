@@ -44,7 +44,7 @@
       "max-len": [
         "error",
         {
-          "code": 300
+          "code": 400
         }
       ],
       "no-console": 1,

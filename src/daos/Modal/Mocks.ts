@@ -1,4 +1,19 @@
-import { requestsType, renterProfileType, searchPreference, tenantAccountAcceptData, tenantAccountDenialData, proServicesAccountAccepted, proServicesAccountDenial, landlordAccountAcceptData, landlordAccountDenialData, accountSettingsData } from "../../shared/Types";
+import {
+    requestsType,
+    renterProfileType,
+    searchPreference,
+    tenantAccountAcceptData,
+    tenantAccountDenialData,
+    proServicesAccountAccepted,
+    proServicesAccountDenial,
+    landlordAccountAcceptData,
+    landlordAccountDenialData,
+    accountSettingsData,
+    accountEmailData,
+    accountSettingsPasswordData,
+    propertyIncomeDataType,
+    propertyIncomeDataTypeArr,
+} from "../../shared/Types";
 
 
 const basicRequests: requestsType =
@@ -438,15 +453,78 @@ const accountSettings: accountSettingsData = {
     }
 }
 
-// export const accountSettingsUpdateProfileDetails=()=>{
+export const accountSettingsUpdateProfileDetails = (data: any): Record<string, unknown> => {
+    const obj: any = accountSettings.profileDetails
+    for (const key in accountSettings?.profileDetails) {
+        obj[key] = data[key];
+    }
+    accountSettings.profileDetails = obj;
+    return accountSettings.profileDetails;
+}
+export const accountSettingsUpdateEmail = (data: accountEmailData): string => {
+    accountSettings.email = data.email;
+    return accountSettings.email;
+}
+export const accountSettingsUpdatePassword = (data: accountSettingsPasswordData): string => {
+    accountSettings.password = data.password;
+    return accountSettings.password;
+}
+export const accountSettingsUpdateAdditionalSettings = (data: any): Record<string, unknown> => {
+    const obj: any = accountSettings.additionalSettings
+    for (const key in accountSettings?.profileDetails) {
+        obj[key] = data[key];
+    }
+    accountSettings.additionalSettings = obj;
+    return accountSettings.additionalSettings;
+}
 
+// const maintenanceSettingsData = {
+//     recurringServiceSettings: {
+//         day: ''
+//     },
+//     privacySettings: {
+//         showassignedtenanttoservicepro:true
+//     }
 // }
-// export const accountSettingsUpdateEmaol=()=>{
-    
-// }
-// export const accountSettingsUpdateProfileDetails=()=>{
-    
-// }
-// export const accountSettingsUpdateProfileDetails=()=>{
-    
-// }
+
+const propertyIncome: propertyIncomeDataTypeArr = [
+    {
+        userID: '444',
+        subCategory: 'data',
+        due: 'up to date',
+        amount: '5000',
+        markAsPaid: '5000',
+        payer: 'rao',
+        lease: 'not alloted',
+        details: 'not found',
+        uploadFile: 'https://notfound@gmail.com'
+    }
+]
+const updatePropertyIncome = (userID: string, dataPayload: any): Array<Record<string, unknown>> => {
+    const response = propertyIncome.find((val) => {
+        if (val.userID === userID) {
+            return val;
+        }
+    });
+    for (let i = 0; i < propertyIncome.length; i++) {
+        if (propertyIncome[i].userID === userID) {
+            let key: any;
+            for (key in dataPayload) {
+                propertyIncome[key] = dataPayload[key]
+            }
+        }
+    }
+    return propertyIncome;
+}
+
+updatePropertyIncome('444', {
+    userID: '444',
+    subCategory: 'new data',
+    due: 'new up to date',
+    amount: ' new 8000',
+    markAsPaid: 'new 6000',
+    payer: 'new rao',
+    lease: 'new not alloted',
+    details: 'new not found',
+    uploadFile: 'new https://notfound@gmail.com'
+})
