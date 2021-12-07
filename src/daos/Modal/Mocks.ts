@@ -13,6 +13,7 @@ import {
     accountSettingsPasswordData,
     propertyIncomeDataType,
     propertyIncomeDataTypeArr,
+    settingsPaymentsStripeData,
 } from "../../shared/Types";
 
 
@@ -487,7 +488,7 @@ export const accountSettingsUpdateAdditionalSettings = (data: any): Record<strin
 //     }
 // }
 
-const propertyIncome: propertyIncomeDataTypeArr = [
+const propertyIncome: Record<string, unknown>[] = [
     {
         userID: '444',
         subCategory: 'data',
@@ -500,12 +501,7 @@ const propertyIncome: propertyIncomeDataTypeArr = [
         uploadFile: 'https://notfound@gmail.com'
     }
 ]
-const updatePropertyIncome = (userID: string, dataPayload: any): Array<Record<string, unknown>> => {
-    const response = propertyIncome.find((val) => {
-        if (val.userID === userID) {
-            return val;
-        }
-    });
+export const updatePropertyIncome = (userID: string, dataPayload: any): Array<Record<string, unknown>> => {
     for (let i = 0; i < propertyIncome.length; i++) {
         if (propertyIncome[i].userID === userID) {
             let key: any;
@@ -516,15 +512,16 @@ const updatePropertyIncome = (userID: string, dataPayload: any): Array<Record<st
     }
     return propertyIncome;
 }
+const stripePayments: Record<string, unknown>[] = [
 
-updatePropertyIncome('444', {
-    userID: '444',
-    subCategory: 'new data',
-    due: 'new up to date',
-    amount: ' new 8000',
-    markAsPaid: 'new 6000',
-    payer: 'new rao',
-    lease: 'new not alloted',
-    details: 'new not found',
-    uploadFile: 'new https://notfound@gmail.com'
-})
+]
+
+export const settingsPaymentsStripe = (userID: string, dataPayload: Record<string, unknown>): Record<string, unknown> => {
+    const response = stripePayments.find(val => {
+        val.userID = userID;
+    })
+    if (!response) {
+        stripePayments.push(dataPayload);
+    }
+    return stripePayments[0];
+}

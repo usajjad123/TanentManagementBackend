@@ -4,13 +4,13 @@ import {
     propertyIncomeRequest,
     propertyIncomeDataType
 } from '../../shared/Types';
-import {
-} from '../../daos/Modal/Mocks';
+import { updatePropertyIncome } from '../../daos/Modal/Mocks';
 const { OK } = StatusCodes;
 
 export const putAccountSettingsProfileDetails = (req: propertyIncomeRequest, res: Response) => {
     const data: propertyIncomeDataType = req.body;
-    const response = (data);
+    const userID: string = req.body.userID;
+    const response =   updatePropertyIncome(userID,data);
     res.send(JSON.stringify(response))
     res.status(OK).end();
 }

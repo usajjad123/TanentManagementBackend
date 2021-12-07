@@ -1,5 +1,3 @@
-import { ReplaceOneModel } from "mongodb"
-
 export interface user {
   uid
   :
@@ -430,3 +428,17 @@ export type propertyIncomeDataTypeArr = [
     uploadFile: string
   }
 ]
+export type settingsPaymentsStripeData = {
+  userID: string,
+  country: string,
+  publicApiKey: string,
+  secretApiKey: string
+}
+export type settingsPaymentsStripeRequest = {
+  body: {
+    userID: string,
+    country: string,
+    publicApiKey: string,
+    secretApiKey: string
+  }
+}
